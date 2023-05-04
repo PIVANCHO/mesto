@@ -1,7 +1,7 @@
 .element__content {
-  height: 80px;
+  min-height: 80px;
   box-sizing: border-box;
-  padding: 25px 15px 21px 31px;
+  padding: 0 15px 0 21px;
   align-items: center;
   display: flex;
   flex-direction: row;

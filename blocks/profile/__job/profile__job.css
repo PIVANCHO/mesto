@@ -9,9 +9,17 @@
   overflow: hidden;
 }
 
+@media (max-width: 720px) {
+  .profile__job {
+    align-self: center;
+    justify-self: center;
+  }
+}
+
 @media (max-width: 420px) {
   .profile__job {
     font-size: 14px;
     line-height: 17px;
+    max-width: 250px;
   }
 }

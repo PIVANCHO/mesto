@@ -6,7 +6,8 @@
 @media (max-width: 720px) {
   .profile__container {
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
+    justify-items: center;
   }
 }
