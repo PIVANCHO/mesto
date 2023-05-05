@@ -1,8 +1,7 @@
-.popup__job {
+.popup__input_name {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  margin-bottom: 48px;
-  padding-bottom: 13px;
+  margin-bottom: 30px;
   font-size: 14px;
   line-height: 17px;
 }

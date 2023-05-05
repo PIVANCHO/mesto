@@ -8,6 +8,20 @@
   white-space: nowrap;
   overflow: hidden;
   justify-self: left;
+  align-self: start;
+  max-width: 500px;
+}
+
+@media (max-width: 900px) {
+  .profile__job {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 800px) {
+  .profile__job {
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -17,10 +31,16 @@
   }
 }
 
+@media (max-width: 560px) {
+  .profile__job {
+    max-width: 350px;
+  }
+}
+
 @media (max-width: 420px) {
   .profile__job {
     font-size: 14px;
     line-height: 17px;
-    max-width: 250px;
+    max-width: 220px;
   }
 }

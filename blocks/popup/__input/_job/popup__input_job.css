@@ -1,0 +1,13 @@
+.popup__input_job {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  margin-bottom: 47px;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media (max-width: 620px) {
+  .popup__input_job {
+    margin-bottom: 43px;
+  }
+}
