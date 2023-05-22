@@ -1,4 +1,5 @@
 .element__delete {
+  background: none;
   background-image: url(../../../images/Trash.svg);
   border: 0;
   width: 18px;
