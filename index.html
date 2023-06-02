@@ -43,12 +43,16 @@
   <div class="popup" id="popup_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" name="form_profile-edit" id="form_profile-edit" class="popup__form">
-        <input type="text" name="popup__input_type_name" placeholder="Введите имя"
-          class="popup__input popup__input_type_name">
-        <input type="text" name="popup__input_job" placeholder="Укажите род деятельности"
-          class="popup__input popup__input_type_job">
-        <button class="popup__save-button" type="submit">Сохранить</button>
+      <form action="#" name="form_profile-edit" id="form_profile-edit" class="popup__form" novalidate>
+        <fieldset class="form__set">
+          <input type="text" name="popup__input_type_name" placeholder="Введите имя"
+            class="popup__input popup__input_type_name" id="name-input">
+          <span class="form_input-error name-input-error"></span>
+          <input type="text" name="popup__input_job" placeholder="Укажите род деятельности"
+            class="popup__input popup__input_type_job" id="job-input">
+          <span class="form_input-error job-input-error"></span>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </fieldset>
       </form>
       <button class="popup__close-button" type="button"></button>
     </div>
@@ -84,6 +88,7 @@
 
   <script src="./scripts/cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
