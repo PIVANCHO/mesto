@@ -1,5 +1,4 @@
 .popup__error {
-  /* margin: 0; */
   display: inline-block;
   padding-top: 5px;
   margin-bottom: 13px;
@@ -12,5 +11,5 @@
 }
 
 .popup__error:last-of-type {
-  margin-bottom: 30px  ;
+  margin-bottom: 30px;
 }
