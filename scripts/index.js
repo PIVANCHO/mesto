@@ -1,3 +1,4 @@
+const page = document.querySelector('.page');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonsClose = document.querySelectorAll('.popup__close-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -17,12 +18,30 @@ const cardTemplate = document.querySelector('.card-template').content;
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupSignature = imagePopup.querySelector('.popup__signature');
 
-function openPopup(popup) {             //Open any popup
-  popup.classList.add('popup_opened');
-}
-
 function closePopup(popup) {            //Close any popup
   popup.classList.remove('popup_opened');
+}
+
+function closePopupOnEscape(popup) {   //Close any popup pressing Escape button
+  page.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
+      closePopup(popup);
+    }
+  });
+}
+
+function closePopupClickingOutside(popup) {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    }
+  });
+}
+
+function openPopup(popup) {             //Open any popup
+  popup.classList.add('popup_opened');
+  closePopupOnEscape(popup);
+  closePopupClickingOutside(popup);
 }
 
 function createCard(cardData) {        //Creating a card
@@ -53,6 +72,7 @@ function createCard(cardData) {        //Creating a card
 function addCard(card) {                //Adding a card to container 
   cardsContainer.prepend(card);
 }
+
 
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
