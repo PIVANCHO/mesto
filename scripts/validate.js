@@ -30,11 +30,10 @@ const checkInputValidity = (input, classObj) => {
   }
 }
 
-const toggleButtonState = (form, classObj) => {
-  const buttonElement = form.querySelector(classObj.submitButtonSelector);
-  const inputList = Array.from(form.querySelectorAll(classObj.inputSelector));
+const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled', true);
+    console.log('Я выключила кнопку');
   } else {
     buttonElement.removeAttribute('disabled');
   }
@@ -49,12 +48,12 @@ const hasInvalidInput = (inputList) => {
 const enableValidation = (classObj) => {
   const formList = Array.from(document.querySelectorAll(classObj.formSelector));
   formList.forEach((form) => {
-    toggleButtonState(form, classObj);
-    form.addEventListener('input', () => {
-      const inputList = Array.from(form.querySelectorAll(classObj.inputSelector));
-      inputList.forEach((input) => {
+    const inputList = Array.from(form.querySelectorAll(classObj.inputSelector));
+    const buttonElement = form.querySelector(classObj.submitButtonSelector);
+    inputList.forEach((input) => {
+      input.addEventListener('input', () => {
         checkInputValidity(input, classObj);
-        toggleButtonState(form, classObj);
+        toggleButtonState(inputList, buttonElement);
       });
     });
   });

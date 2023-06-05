@@ -1,4 +1,3 @@
-const page = document.querySelector('.page');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonsClose = document.querySelectorAll('.popup__close-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -17,31 +16,25 @@ const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('.card-template').content;
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupSignature = imagePopup.querySelector('.popup__signature');
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
+
+
+function closeByEsc(evt) {             //Closing popup by Escape button
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup); 
+  }
+}
 
 function closePopup(popup) {            //Close any popup
   popup.classList.remove('popup_opened');
-}
-
-function closePopupOnEscape(popup) {   //Close any popup pressing Escape button
-  page.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
-      closePopup(popup);
-    }
-  });
-}
-
-function closePopupClickingOutside(popup) {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popup);
-    }
-  });
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 function openPopup(popup) {             //Open any popup
   popup.classList.add('popup_opened');
-  closePopupOnEscape(popup);
-  closePopupClickingOutside(popup);
+  document.addEventListener('keydown', closeByEsc);
 }
 
 function createCard(cardData) {        //Creating a card
@@ -73,7 +66,6 @@ function addCard(card) {                //Adding a card to container
   cardsContainer.prepend(card);
 }
 
-
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup'));
@@ -94,16 +86,26 @@ buttonEdit.addEventListener('click', () => {   //Open edit popup
 });
 
 buttonAdd.addEventListener('click', () => {    //Open card adding popup
-  popupAdd.classList.add('popup_opened');
+  openPopup(popupAdd);
+  popupAdd.querySelector('.popup__save-button').disabled = true;
 });
 
 popupFormAdd.addEventListener('submit', (evt) => {   //Add form submititon
   evt.preventDefault();
   addCard(createCard({ name: cardNameInput.value, link: imageLinkInput.value}));
   popupFormAdd.reset();
+  evt.submitter.disabled = true;
   closePopup(popupAdd);
 });
 
 initialCards.forEach((item) => {            //Adding initial cards to container
   addCard(createCard(item));
 })
+
+popupList.forEach((popup) => {           //Adding closing popup clicking outside listener 
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    }
+  });
+});
