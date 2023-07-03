@@ -25,8 +25,9 @@ const initialCards = [
   }
 ];
 
-const cardLikeButton = document.querySelector('.element__like');
-const cardDeleteButton = document.querySelector('.element__delete');
+import {imagePopup, imagePopupPicture, imagePopupSignature, openPopup} from './index.js';
+
+console.log(imagePopup);
 
 class Card {
   constructor(image, signature) {
@@ -44,30 +45,41 @@ class Card {
     return cardElement;
   }
 
-  _handleLikeButton() {
+  _handleLikeButton(cardLikeButton) {
     cardLikeButton.classList.toggle('element__like_active');
   }
 
-  _handleDeleteButton() {
+  _handleDeleteButton(cardDeleteButton) {
     const item = cardDeleteButton.closest('.element');
     item.remove();
   }
 
-  _setEventListeners() {
+  _handleImagePopup() {
+      openPopup(imagePopup);
+      imagePopupPicture.src = this._image;
+      imagePopupPicture.alt = this._signature;
+      imagePopupSignature.textContent = this._signature;
+  }
+
+  _setEventListeners(cardLikeButton, cardDeleteButton, imageElement) {
     cardLikeButton.addEventListener('click', () => {
-      this._handleLikeButton();
+      this._handleLikeButton(cardLikeButton);
     });
     cardDeleteButton.addEventListener('click', () => {
-      this._handleDeleteButton();
+      this._handleDeleteButton(cardDeleteButton);
+    });
+    imageElement.addEventListener('click', () => {
+      this._handleImagePopup();
     });
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
 
     this._element.querySelector('.element__image').src = this._image;
     this._element.querySelector('.element__signature').textContent = this._signature;
+
+    this._setEventListeners(this._element.querySelector('.element__like'), this._element.querySelector('.element__delete'), this._element.querySelector('.element__image'));
 
     return this._element;
   }

@@ -37,36 +37,6 @@ function openPopup(popup) {             //Open any popup
   document.addEventListener('keydown', closeByEsc);
 }
 
-// function createCard(cardData) {        //Creating a card
-//   const itemElement = cardTemplate.cloneNode(true);
-//   const itemElementSignature = itemElement.querySelector('.element__signature');
-//   const itemElementImage = itemElement.querySelector('.element__image');
-//   const cardLikeButton = itemElement.querySelector('.element__like');
-//   const cardDeleteButton = itemElement.querySelector('.element__delete');
-
-//   itemElementSignature.textContent = cardData.name;
-//   itemElementImage.src = cardData.link;
-//   itemElementImage.alt = cardData.name;
-//   itemElementImage.addEventListener('click', (evt) => {
-//     openPopup(imagePopup);
-//     imagePopupPicture.src = cardData.link;
-//     imagePopupPicture.alt = cardData.name;
-//     imagePopupSignature.textContent = cardData.name;
-//   });
-//   cardLikeButton.addEventListener('click', (evt) => {
-//     evt.target.classList.toggle('element__like_active');
-//   });
-//   cardDeleteButton.addEventListener('click', (evt) => {
-//     const item = evt.target.closest('.element');
-//     item.remove();
-//   });
-//   return itemElement;
-// }
-
-// function addCard(card) {                //Adding a card to container 
-//   cardsContainer.prepend(card);
-// }
-
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup'));
@@ -99,10 +69,6 @@ popupFormAdd.addEventListener('submit', (evt) => {   //Add form submititon
   closePopup(popupAdd);
 });
 
-// initialCards.forEach((item) => {            //Adding initial cards to container
-//   addCard(createCard(item));
-// })
-
 popupList.forEach((popup) => {           //Adding closing popup clicking outside listener 
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget) {
@@ -110,3 +76,5 @@ popupList.forEach((popup) => {           //Adding closing popup clicking outside
     }
   });
 });
+
+export {imagePopup, imagePopupPicture, imagePopupSignature, openPopup}
