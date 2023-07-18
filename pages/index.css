@@ -28,7 +28,6 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
-@import url(../blocks/popup/__input/_type/popup__input_type_card-name.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_image-link.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__container/popup__container.css);

@@ -62,10 +62,10 @@
       <form action="#" name="form_add-card" class="popup__form" id="popup__form_add" novalidate>
         <input type="text" name="popup__input_type_name" placeholder="Введите название"
           class="popup__input popup__input_type_card-name" id="card-name" minlength="2" maxlength="30" required>
-          <span class="popup__error" id="card-name-error"></span>
+        <span class="popup__error" id="card-name-error"></span>
         <input type="url" name="popup__input_image-link" placeholder="Вставьте ссылку на картинку"
           class="popup__input popup__input_type_image-link" id="image-link" required>
-          <span class="popup__error" id="image-link-error"></span>
+        <span class="popup__error" id="image-link-error"></span>
         <button class="popup__save-button" type="submit">Создать</button>
       </form>
       <button class="popup__close-button" type="button" id="closeAddWindow"></button>
@@ -86,9 +86,8 @@
     <p class="footer__text">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <script type="module" src="./scripts/card.js"></script>
   <script type="module" src="./scripts/index.js"></script>
-  <!-- <script type="module" src="./scripts/validate.js"></script> -->
+  <script type="module" src="./scripts/Card.js"></script>
   <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 

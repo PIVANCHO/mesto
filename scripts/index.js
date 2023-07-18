@@ -17,6 +17,7 @@ const cardTemplate = document.querySelector('.card-template').content;
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupSignature = imagePopup.querySelector('.popup__signature');
 const popupList = Array.from(document.querySelectorAll('.popup'));
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 
 
@@ -78,3 +79,18 @@ popupList.forEach((popup) => {           //Adding closing popup clicking outside
 });
 
 export {imagePopup, imagePopupPicture, imagePopupSignature, openPopup}
+
+import { FormValidator } from "./FormValidator.js";
+import { initialCards, Card } from "./Card.js";
+
+formList.forEach((form) => {
+  const formValidation = new FormValidator(form);
+  formValidation.EnableFormValidation();
+});
+
+initialCards.forEach((item) => {
+  const card = new Card(item.link, item.name);
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').append(cardElement);
+});
+

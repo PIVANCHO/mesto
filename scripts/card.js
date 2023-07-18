@@ -27,7 +27,7 @@ const initialCards = [
 
 import {imagePopup, imagePopupPicture, imagePopupSignature, openPopup} from './index.js';
 
-console.log(imagePopup);
+
 
 class Card {
   constructor(image, signature) {
@@ -85,8 +85,6 @@ class Card {
   }
 }
 
-initialCards.forEach((item) => {
-  const card = new Card(item.link, item.name);
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
-});
+
+
+export {initialCards, Card}
