@@ -38,6 +38,12 @@ function openPopup(popup) {             //Open any popup
   document.addEventListener('keydown', closeByEsc);
 }
 
+function addCard(link, name) {          //Creating and adding a card
+  const card = new Card(link, name);
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').append(cardElement);
+}
+
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup'));
@@ -64,7 +70,7 @@ buttonAdd.addEventListener('click', () => {    //Open card adding popup
 
 popupFormAdd.addEventListener('submit', (evt) => {   //Add form submititon
   evt.preventDefault();
-  addCard(createCard({ name: cardNameInput.value, link: imageLinkInput.value}));
+  addCard(imageLinkInput.value, cardNameInput.value);
   popupFormAdd.reset();
   evt.submitter.disabled = true;
   closePopup(popupAdd);
@@ -89,8 +95,6 @@ formList.forEach((form) => {
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item.link, item.name);
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
+  addCard(item.link, item.name);
 });
 
