@@ -1,3 +1,5 @@
+import {imagePopup, imagePopupPicture, imagePopupSignature, openPopup} from './index.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,32 +27,31 @@ const initialCards = [
   }
 ];
 
-import {imagePopup, imagePopupPicture, imagePopupSignature, openPopup} from './index.js';
-
 
 
 class Card {
-  constructor(image, signature) {
+  constructor(image, signature, cardSelectors) {
     this._image = image;
     this._signature = signature;
+    this._cardSelectors = cardSelectors;
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector('.card-template')
+      .querySelector(this._cardSelectors.template)
       .content
-      .querySelector('.element')
+      .querySelector(this._cardSelectors.element)
       .cloneNode(true);
 
     return cardElement;
   }
 
   _handleLikeButton(cardLikeButton) {
-    cardLikeButton.classList.toggle('element__like_active');
+    cardLikeButton.classList.toggle(this._cardSelectors.likeActive);
   }
 
   _handleDeleteButton(cardDeleteButton) {
-    const item = cardDeleteButton.closest('.element');
+    const item = cardDeleteButton.closest(this._cardSelectors.element);
     item.remove();
   }
 
@@ -75,11 +76,17 @@ class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector(this._cardSelectors.image);
+    this._cardSignature = this._element.querySelector(this._cardSelectors.signature);
+    this._like = this._element.querySelector(this._cardSelectors.like);
+    this._delete = this._element.querySelector(this._cardSelectors.delete);
 
-    this._element.querySelector('.element__image').src = this._image;
-    this._element.querySelector('.element__signature').textContent = this._signature;
 
-    this._setEventListeners(this._element.querySelector('.element__like'), this._element.querySelector('.element__delete'), this._element.querySelector('.element__image'));
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._signature;
+    this._cardSignature.textContent = this._signature;
+
+    this._setEventListeners(this._like, this._delete, this._cardImage);
 
     return this._element;
   }
