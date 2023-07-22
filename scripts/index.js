@@ -43,7 +43,7 @@ const cardSelectors = {
 function closeByEsc(evt) {             //Closing popup by Escape button
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup); 
+    closePopup(openedPopup);
   }
 }
 
@@ -63,10 +63,13 @@ function createCard(link, name) {          //Creating a card
   return cardElement;
 }
 
-formList.forEach((form) => {                //Each form validation
-  const formValidation = new FormValidator(form, validationSelectors);
-  formValidation.enableFormValidation();
-});
+// formList.forEach((form) => {                //Each form validation
+//   const formValidation = new FormValidator(form, validationSelectors);
+//   formValidation.enableFormValidation();
+// });
+
+const formEditValidation = new FormValidator();
+formEditValidation.enableFormValidation();
 
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
@@ -110,4 +113,4 @@ initialCards.forEach((item) => {
   cardsContainer.prepend(createCard(item.link, item.name));
 });
 
-export {imagePopup, imagePopupPicture, imagePopupSignature, openPopup}
+export { imagePopup, imagePopupPicture, imagePopupSignature, openPopup }
