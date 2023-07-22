@@ -68,8 +68,11 @@ function createCard(link, name) {          //Creating a card
 //   formValidation.enableFormValidation();
 // });
 
-const formEditValidation = new FormValidator();
+const formEditValidation = new FormValidator(popupFormEdit, validationSelectors);
 formEditValidation.enableFormValidation();
+
+const formAddValidation = new FormValidator(popupFormAdd, validationSelectors);
+formAddValidation.enableFormValidation();
 
 buttonsClose.forEach((item) => {            // Close opened popup by button
   item.addEventListener('click', (evt) => {
@@ -98,6 +101,7 @@ popupFormAdd.addEventListener('submit', (evt) => {   //Add form submititon
   evt.preventDefault();
   cardsContainer.prepend(createCard(imageLinkInput.value, cardNameInput.value, cardSelectors));
   popupFormAdd.reset();
+  formAddValidation.enableFormValidation();
   closePopup(popupAdd);
 });
 
