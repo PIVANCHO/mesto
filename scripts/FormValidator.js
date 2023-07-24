@@ -35,21 +35,12 @@ class FormValidator {
 
   _inputListValidation(inputList, buttonElement) {
     inputList.forEach((input) => {
-      this._toggleButtonState(inputList, buttonElement);
+      this.toggleButtonState();
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._toggleButtonState(inputList, buttonElement);
+        this.toggleButtonState();
       });
     });
-  }
-
-  _toggleButtonState (inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.setAttribute('disabled', true);
-      // console.log('Я выключила кнопку');
-    } else {
-      buttonElement.removeAttribute('disabled');
-    }
   }
 
   _hasInvalidInput (inputList) {
