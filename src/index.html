@@ -5,19 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
 <body class="page">
   <header class="header">
-    <img src="./images/logo.svg" alt="Логотип Место Россия" class="header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Логотип Место Россия" class="header__logo">
   </header>
 
   <main class="content">
     <section class="profile">
       <div class="profile__container">
-        <img src="./images/avatar.svg" alt="аватар" class="profile__avatar">
+        <img src="<%=require('./images/avatar.svg')%>" alt="аватар" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -40,7 +39,7 @@
     </section>
   </main>
 
-  <div class="popup" id="popup_edit">
+  <div class="popup popup_edit" id="popup_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" name="form_profile-edit" id="form_profile-edit" class="popup__form" novalidate>
@@ -85,10 +84,6 @@
   <footer class="footer">
     <p class="footer__text">&copy; 2023 Mesto Russia</p>
   </footer>
-
-  <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 
 </html>

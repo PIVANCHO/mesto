@@ -1,39 +1,9 @@
-import {imagePopup, imagePopupPicture, imagePopupSignature, openPopup} from './index.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-
-
-class Card {
-  constructor(image, signature, cardSelectors) {
+export default class Card {
+  constructor({image, signature}, cardSelectors, handleCardClick) {
     this._image = image;
     this._signature = signature;
     this._cardSelectors = cardSelectors;
+    this.handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -55,13 +25,6 @@ class Card {
     item.remove();
   }
 
-  _handleImagePopup() {
-      openPopup(imagePopup);
-      imagePopupPicture.src = this._image;
-      imagePopupPicture.alt = this._signature;
-      imagePopupSignature.textContent = this._signature;
-  }
-
   _setEventListeners(cardLikeButton, cardDeleteButton, imageElement) {
     cardLikeButton.addEventListener('click', () => {
       this._handleLikeButton(cardLikeButton);
@@ -70,7 +33,7 @@ class Card {
       this._handleDeleteButton(cardDeleteButton);
     });
     imageElement.addEventListener('click', () => {
-      this._handleImagePopup();
+      this.handleCardClick(this._signature, this._image);
     });
   }
 
@@ -91,7 +54,3 @@ class Card {
     return this._element;
   }
 }
-
-
-
-export {initialCards, Card}
