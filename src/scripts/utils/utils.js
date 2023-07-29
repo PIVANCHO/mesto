@@ -7,7 +7,8 @@ import { cardSelectors,
 
 import { 
   popupAddElement,
-  cardList
+  cardList,
+  userInfo
 } from '../../index.js';
 
 import Card from '../components/Card.js';
@@ -38,21 +39,21 @@ function createCard(link, name) {          //Creating a card
 }
 
 function submititonEditForm() {
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
+  userInfo.setUserInfo(nameInput.value, jobInput.value);
 }
 
 function submititonAddForm() {
-  const cardValues = popupAddElement._getInputValues();
+  const cardValues = popupAddElement.getInputValues();
   const card = new Card({image: cardValues[1], signature: cardValues[0]}, cardSelectors, handleCardClick);
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
 }
 
+const popupImage = new PopupWithImage('.popup_picture');
+
 function handleCardClick(name, link) {
-  const popupImage = new PopupWithImage('.popup_picture', {nameImage: name, sourceImage: link});
   popupImage.setEventListeners();
-  popupImage.open();
+  popupImage.open(name, link);
 }
 
 export {

@@ -52,6 +52,7 @@ import {
   handleCardClick
 } from './scripts/utils/utils.js';
 
+const userInfo = new UserInfo({userNameSelector: '.profile__name', userDescriptionSelector: '.profile__job'});
 
 const formEditValidation = new FormValidator(popupFormEdit, validationSelectors);
 formEditValidation.enableFormValidation();
@@ -60,10 +61,16 @@ const formAddValidation = new FormValidator(popupFormAdd, validationSelectors);
 formAddValidation.enableFormValidation();
 
 const popupEditElement = new PopupWithForm({popupSelector: '.popup_edit', buttonOpenSelector: '.profile__edit-button', submit: submititonEditForm});
+buttonEdit.addEventListener('click', () => {
+  popupEditElement.setInputValues([userInfo.getUserInfo().name, userInfo.getUserInfo().description]);
+  popupEditElement.open();
+});
 popupEditElement.setEventListeners();
-popupEditElement.setInputValues([nameProfile.textContent, jobProfile.textContent]);
 
-const popupAddElement = new PopupWithForm({popupSelector: '#popup_add', buttonOpenSelector: '.profile__add-button', submit: submititonAddForm});
+const popupAddElement = new PopupWithForm({popupSelector: '.popup_add', submit: submititonAddForm});
+buttonAdd.addEventListener('click', () => {
+  popupAddElement.open();
+});
 popupAddElement.setEventListeners();
 
 const cardList = new Section({
@@ -79,5 +86,6 @@ cardList.renderItems();
 
 export {
   popupAddElement,
-  cardList
+  cardList,
+  userInfo
 }

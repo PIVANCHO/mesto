@@ -1,11 +1,9 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector, {nameImage, sourceImage}) {
+  constructor(popupSelector) {
     super(popupSelector)
     this._popup = document.querySelector(popupSelector);
-    this._sourceImage = sourceImage;
-    this._nameImage = nameImage;
     this._signature = this._popup.querySelector('.popup__signature');
     this._image = this._popup.querySelector('.popup__image');
   }
@@ -22,10 +20,11 @@ export default class PopupWithImage extends Popup {
     });
   }
 
-  open() {
-    this._image.src = this._sourceImage;
-    this._image.alt = this._nameImage;
-    this._signature.textContent = this._nameImage;
+  open(name, link) {
+    this._image.src = link;
+    this._image.alt = name;
+    this._signature.textContent = name;
     this._popup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose);
   }
 }
