@@ -7,13 +7,16 @@ import { cardSelectors,
 
 import { 
   popupAddElement,
-  cardList,
-  userInfo
+  userInfo,
+  api,
+  popupChangeAvatarElement
 } from '../../index.js';
 
 import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupDeleteSubmition from '../components/PopupDeleteSubmition.js';
+import Api from '../components/Api.js';
 
 function closeByEsc(evt) {             //Closing popup by Escape button
   if (evt.key === 'Escape') {
@@ -39,14 +42,24 @@ function createCard(link, name) {          //Creating a card
 }
 
 function submititonEditForm() {
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
+  api.editUserInfo({
+    name: nameInput.value,
+    about: jobInput.value
+  });
 }
 
 function submititonAddForm() {
   const cardValues = popupAddElement.getInputValues();
-  const card = new Card({image: cardValues[1], signature: cardValues[0]}, cardSelectors, handleCardClick);
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+  api.addCard({
+    name: cardValues[0],
+    link: cardValues[1],
+    likes: []
+  });
+}
+
+function submitionChangeAvatarForm() {
+  const avatarUrl = popupChangeAvatarElement.getInputValues()[0];
+  api.changeAvatar(avatarUrl);
 }
 
 const popupImage = new PopupWithImage('.popup_picture');
@@ -56,6 +69,13 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
 }
 
+function handleDeleteClick(cardId) {
+  const deletePopup = new PopupDeleteSubmition({ popupSelector: this._cardSelectors.deletePopup });
+  deletePopup.setEventListeners();
+  deletePopup.open();
+  deletePopup.setDeleteSubmition(cardId);
+}
+
 export {
   closeByEsc,
   closePopup,
@@ -63,5 +83,7 @@ export {
   createCard,
   submititonEditForm,
   submititonAddForm,
-  handleCardClick
+  handleCardClick,
+  handleDeleteClick,
+  submitionChangeAvatarForm
 }

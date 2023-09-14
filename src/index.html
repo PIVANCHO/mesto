@@ -17,6 +17,9 @@
     <section class="profile">
       <div class="profile__container">
         <img src="<%=require('./images/avatar.svg')%>" alt="аватар" class="profile__avatar">
+        <div class="profile__change-avatar">
+          <img src="<%=require('./images/change-avatar.svg')%>" alt="" class="profile__change-avatar-button">
+        </div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -32,7 +35,10 @@
           <button class="element__delete" type="button"></button>
           <div class="element__content">
             <h2 class="element__signature"></h2>
-            <button class="element__like" type="button"></button>
+            <div class="element__like-section">
+              <button class="element__like" type="button"></button>
+              <p class="element__like-amount">0</p>
+            </div>
           </div>
         </div>
       </template>
@@ -79,6 +85,29 @@
       <button class="popup__close-button" type="button" id="closeImageWindow"></button>
     </div>
 
+  </div>
+
+  <div class="popup popup_change-avatar" id="popup_change-avatar">
+    <div class="popup__container popup__container_type_change-avatar">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form action="#" name="form_add-card" class="popup__form" id="popup__form_change-avatar" novalidate>
+        <input type="url" name="popup__input_type_avatar-link" placeholder="Введите адрес картинки"
+          class="popup__input popup__input_type_avatar-link" id="avatar-link" required>
+        <span class="popup__error" id="avatar-link-error"></span>
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close-button" type="button" id="closeChangeAvatarWindow"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_delete" id="popup_delete">
+    <div class="popup__container popup__container_type_delete">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form action="#" name="form_delete" class="popup__form" id="popup__form_delete" novalidate>
+        <button class="popup__save-button" type="submit">Да</button>
+      </form>
+      <button class="popup__close-button" type="button" id="closeDeleteCardWindow"></button>
+    </div>
   </div>
 
   <footer class="footer">

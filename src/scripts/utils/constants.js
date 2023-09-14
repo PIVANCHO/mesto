@@ -18,6 +18,10 @@ const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupSignature = imagePopup.querySelector('.popup__signature');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 const formList = Array.from(document.querySelectorAll('.popup__form'));
+const avatarChangeButton = document.querySelector('.profile__change-avatar');
+const popupAvatarChange = document.querySelector('.popup_change-avatar');
+const popupAvatarChangeCloseButton = document.querySelector('#closeChangeAvatarWindow');
+const formChangeAvatar = document.querySelector('#popup__form_change-avatar');
 
 const validationSelectors = {
   errorInput: '.popup__input_type_error',
@@ -32,7 +36,9 @@ const cardSelectors = {
   image: '.element__image',
   signature: '.element__signature',
   like: '.element__like',
-  delete: '.element__delete'
+  delete: '.element__delete',
+  deletePopup: '.popup_delete',
+  likeAmount: '.element__like-amount'
 };
 
 const initialCards = [
@@ -86,5 +92,9 @@ export {
   formList,
   validationSelectors,
   cardSelectors,
-  initialCards
+  initialCards,
+  avatarChangeButton,
+  popupAvatarChange,
+  popupAvatarChangeCloseButton,
+  formChangeAvatar
 }
