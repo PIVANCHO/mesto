@@ -1,14 +1,3 @@
-import Section from "./Section.js";
-import Card from "./Card.js";
-import {
-  cardsContainer,
-  cardSelectors,
-} from "../utils/constants.js";
-import {
-  handleCardClick,
-  handleDeleteClick
-} from "../utils/utils";
-
 // РЕВЬЮЕР, ПОЖАЛУЙСТА ПРОЧИТАЙ ЭТО!!!
 // Это моя последняя попытка ревью, если не успеваю получить зачет до вечера,
 // четверга, то мне грозит отчисление с курса, я не смог сдать проект вовремя в силу своих
@@ -24,57 +13,32 @@ export default class Api {
     this._headers = headers;
   }
 
-  getUserInformation(userInfo) {
+  _checkResStatus(res) {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  }
+
+  getUserInformation() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: 'GET'
     })
-      .then(res => res.json())
-      .then((result) => {
-        userInfo.setUserInfo({
-          name: result.name,
-          about: result.about,
-          avatarUrl: result.avatar,
-          userId: result._id,
-          userCohort: result.cohort
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   getCards() {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: 'GET'
     })
-      .then(res => res.json())
-      .then((result) => {
-        const cardList = new Section({
-          items: result,
-          renderer: (item) => {
-            const card = new Card({
-              image: item.link,
-              signature: item.name,
-              likes: item.likes,
-              owner: item.owner,
-              id: item._id
-            }, cardSelectors, handleCardClick, handleDeleteClick);
-
-            const cardElement = card.generateCard();
-            cardList.addItem(cardElement);
-          }
-        }, cardsContainer);
-        cardList.renderItems();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   editUserInfo({ name, about }) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -82,17 +46,11 @@ export default class Api {
         about: about
       })
     })
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   addCard({ name, link }) {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -101,21 +59,15 @@ export default class Api {
         likes: []
       })
     })
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   deleteCard(id) {
-    fetch(`${this._baseUrl}/cards/${id}`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => res.json())
+      .then(res => this._checkResStatus(res))
       .then((result) => {
         console.log(result);
       })
@@ -125,48 +77,30 @@ export default class Api {
   }
 
   putLike(id, userInfo) {
-    fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers,
       body: JSON.stringify(userInfo)
     })
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   deleteLike(id) {
-    fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 
   changeAvatar(avatarUrl) {
-    fetch(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatarUrl
       })
     })
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResStatus(res))
   }
 }

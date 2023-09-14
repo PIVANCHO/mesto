@@ -11,48 +11,114 @@ import './index.css';
 
 import {
   buttonEdit,
-  buttonsClose,
   buttonAdd,
-  popupEdit,
-  popupAdd,
-  nameInput,
-  jobInput,
-  nameProfile,
-  jobProfile,
   popupFormEdit,
-  cardNameInput,
-  imageLinkInput,
   popupFormAdd,
-  imagePopup,
   cardsContainer,
-  cardTemplate,
-  imagePopupPicture,
-  imagePopupSignature,
-  popupList,
-  formList,
   validationSelectors,
   cardSelectors,
-  initialCards,
   avatarChangeButton,
-  popupAvatarChange,
-  popupAvatarChangeCloseButton,
-  formChangeAvatar
+  formChangeAvatar,
+  avatar
 } from './scripts/utils/constants.js';
 
 import FormValidator from "./scripts/components/FormValidator.js";
-import Popup from './scripts/components/Popup.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
+import PopupDeleteSubmition from './scripts/components/PopupDeleteSubmition.js';
 import Section from './scripts/components/Section.js';
 import Card from './scripts/components/Card.js';
 import UserInfo from './scripts/components/UserInfo.js';
 import Api from './scripts/components/Api.js';
 
 import {
-  submititonEditForm,
-  submititonAddForm,
-  submitionChangeAvatarForm
+  handleLikeClick
 } from './scripts/utils/utils.js';
+
+function submititonEditForm(inputValues) {
+  api.editUserInfo({
+    name: inputValues.name,
+    about: inputValues.description
+  })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+    userInfo.setUserInfo({
+      name: inputValues.name,
+      about: inputValues.description
+    });
+}
+
+function submititonAddForm(inputValues) {
+  const cardOwner = userInfo.getUserInfo();
+
+  api.addCard({
+    name: inputValues.cardName,
+    link: inputValues.imageLink
+  })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+    const cardList = new Section({
+      items: [
+        {
+          image: inputValues.imageLink,
+          signature: inputValues.cardName,
+          likes: [],
+          owner: cardOwner,
+          id: ''
+        }
+      ],
+      renderer: (item) => {
+        const card = new Card({
+          image: item.link,
+          signature: item.signature,
+          likes: item.likes,
+          owner: item.owner,
+          id: item.id
+        }, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick);
+        const cardElement = card.generateCard();
+        cardList.addItem(cardElement);
+      }
+    }, cardsContainer); 
+}
+
+function submitionChangeAvatarForm(inputValues) {
+  avatar.src = inputValues.avatarLink;
+  api.changeAvatar(inputValues.avatarLink)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+const popupImage = new PopupWithImage('.popup_picture');
+popupImage.setEventListeners();
+
+function handleCardClick(name, link) {
+  popupImage.open(name, link);
+}
+
+const deletePopup = new PopupDeleteSubmition({ popupSelector: '.popup_delete' }, (cardId) => {
+  api.deleteCard(cardId);
+});
+deletePopup.setEventListeners();
+
+function handleDeleteClick(cardId, deleteButton, elementSelector) {
+  deletePopup.open();
+  deletePopup.setDeleteSubmition(cardId, deleteButton, elementSelector);
+}
+
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-74',
@@ -71,14 +137,46 @@ const api = new Api({
 // А не в критических ошибках, и я обязательно исправлю все замечания
 // Очень на вас надеюсь и буду невероятно благодарен!!!
 
-const userInfo = new UserInfo({
+const userInfo = new UserInfo({               //Creating UserInfo class element
   userNameSelector: '.profile__name',
   userDescriptionSelector: '.profile__job',
   userAvatarSelctor: '.profile__avatar'
 });
 
-api.getUserInformation(userInfo);
-api.getCards();
+api.getUserInformation() //Getting info about user from server and setting it on page
+  .then ((result) => {
+    userInfo.setInitialUserInfo({
+      name: result.name,
+      about: result.about,
+      avatarUrl: result.avatar,
+      userId: result._id,
+      userCohort: result.cohort
+  })})
+  .catch((err) => {
+    console.log(err);
+  });
+
+api.getCards() //Getting cards from server and setting on page
+  .then ((result) => {
+    const cardList = new Section({
+      items: result,
+      renderer: (item) => {
+        const card = new Card({
+          image: item.link,
+          signature: item.name,
+          likes: item.likes,
+          owner: item.owner,
+          id: item._id
+        }, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick);
+        const cardElement = card.generateCard();
+        cardList.addItem(cardElement);
+      }
+    }, cardsContainer);
+    cardList.renderItems();
+  })  
+  .catch((err) => {
+    console.log(err);
+  });
 
 const formEditValidation = new FormValidator(popupFormEdit, validationSelectors);
 formEditValidation.enableFormValidation();

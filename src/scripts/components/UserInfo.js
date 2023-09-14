@@ -19,11 +19,16 @@ export default class UserInfo {
     return userInfoObject;
   }
 
-  setUserInfo({name, about, avatarUrl, userId, userCohort}) {
+  setInitialUserInfo({name, about, avatarUrl, userId, userCohort}) {
     this._userName.textContent = name;
     this._userDescription.textContent = about;
     this._userAvatar.src = avatarUrl;
     this._userId = userId;
     this._userCohort = userCohort;
+  }
+
+  setUserInfo({name, about}) {
+    this._userName.textContent = name;
+    this._userDescription.textContent = about;
   }
 }

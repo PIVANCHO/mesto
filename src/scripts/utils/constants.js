@@ -22,6 +22,7 @@ const avatarChangeButton = document.querySelector('.profile__change-avatar');
 const popupAvatarChange = document.querySelector('.popup_change-avatar');
 const popupAvatarChangeCloseButton = document.querySelector('#closeChangeAvatarWindow');
 const formChangeAvatar = document.querySelector('#popup__form_change-avatar');
+const avatar = document.querySelector('.profile__avatar');
 
 const validationSelectors = {
   errorInput: '.popup__input_type_error',
@@ -96,5 +97,6 @@ export {
   avatarChangeButton,
   popupAvatarChange,
   popupAvatarChangeCloseButton,
-  formChangeAvatar
+  formChangeAvatar,
+  avatar
 }

@@ -50,11 +50,11 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" name="form_profile-edit" id="form_profile-edit" class="popup__form" novalidate>
         <input type="text" name="popup__input_type_name" placeholder="Введите имя"
-          class="popup__input popup__input_type_name" id="name-input" minlength="2" maxlength="40" required>
-        <span class="popup__error" id="name-input-error"></span>
+          class="popup__input popup__input_type_name" id="name" minlength="2" maxlength="40" required>
+        <span class="popup__error" id="name-error"></span>
         <input type="text" name="popup__input_job" placeholder="Укажите род деятельности"
-          class="popup__input popup__input_type_job" id="job-input" minlength="2" maxlength="200" required>
-        <span class="popup__error" id="job-input-error"></span>
+          class="popup__input popup__input_type_job" id="description" minlength="2" maxlength="200" required>
+        <span class="popup__error" id="description-error"></span>
         <button class="popup__save-button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-button" type="button"></button>
@@ -66,11 +66,11 @@
       <h2 class="popup__title">Новое место</h2>
       <form action="#" name="form_add-card" class="popup__form" id="popup__form_add" novalidate>
         <input type="text" name="popup__input_type_name" placeholder="Введите название"
-          class="popup__input popup__input_type_card-name" id="card-name" minlength="2" maxlength="30" required>
-        <span class="popup__error" id="card-name-error"></span>
+          class="popup__input popup__input_type_card-name" id="cardName" minlength="2" maxlength="30" required>
+        <span class="popup__error" id="cardName-error"></span>
         <input type="url" name="popup__input_image-link" placeholder="Вставьте ссылку на картинку"
-          class="popup__input popup__input_type_image-link" id="image-link" required>
-        <span class="popup__error" id="image-link-error"></span>
+          class="popup__input popup__input_type_image-link" id="imageLink" required>
+        <span class="popup__error" id="imageLink-error"></span>
         <button class="popup__save-button" type="submit">Создать</button>
       </form>
       <button class="popup__close-button" type="button" id="closeAddWindow"></button>
@@ -92,8 +92,8 @@
       <h2 class="popup__title">Обновить аватар</h2>
       <form action="#" name="form_add-card" class="popup__form" id="popup__form_change-avatar" novalidate>
         <input type="url" name="popup__input_type_avatar-link" placeholder="Введите адрес картинки"
-          class="popup__input popup__input_type_avatar-link" id="avatar-link" required>
-        <span class="popup__error" id="avatar-link-error"></span>
+          class="popup__input popup__input_type_avatar-link" id="avatarLink" required>
+        <span class="popup__error" id="avatarLink-error"></span>
         <button class="popup__save-button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-button" type="button" id="closeChangeAvatarWindow"></button>
