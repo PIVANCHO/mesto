@@ -68,12 +68,7 @@ export default class Api {
       headers: this._headers
     })
       .then(res => this._checkResStatus(res))
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      
   }
 
   putLike(id, userInfo) {
