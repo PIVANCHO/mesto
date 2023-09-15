@@ -19,8 +19,14 @@ const api = new Api({
   }
 });
 
-function createCard(link, name) {          //Creating a card
-  const card = new Card(link, name, cardSelectors);
+function createCard({image, signature, likes, owner, id}, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick) {          //Creating a card
+  const card = new Card({
+    image: image,
+    signature: signature,
+    likes: likes,
+    owner: owner,
+    id: id
+  }, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick);
   const cardElement = card.generateCard();
   return cardElement;
 }

@@ -32,7 +32,8 @@ import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
 
 import {
-  handleLikeClick
+  handleLikeClick,
+  createCard
 } from '../scripts/utils/utils.js';
 
 const formEditValidation = new FormValidator(popupFormEdit, validationSelectors);
@@ -79,14 +80,13 @@ const cardItems = [];
 const cardList = new Section({
   items: cardItems,
   renderer: (item) => {
-    const card = new Card({
+    const cardElement = createCard({
       image: item.link,
       signature: item.name,
       likes: item.likes,
       owner: item.owner,
       id: item._id
     }, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick);
-    const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
 }, cardsContainer); 
@@ -105,23 +105,24 @@ api.getUserInformation() //Getting info about user from server and setting it on
       avatarUrl: result.avatar,
       userId: result._id,
       userCohort: result.cohort
-  })})
+  })
+  api.getCards() //Getting cards from server and setting on page
+    .then ((result) => {
+      console.log(result);
+      result.forEach((item) => {
+        cardItems.unshift(item);
+      });
+      cardList.renderItems();
+    })  
+    .catch((err) => {
+      console.log(err);
+    });
+})
   .catch((err) => {
     console.log(err);
   });
 
-api.getCards() //Getting cards from server and setting on page
-  .then ((result) => {
-    console.log(result);
-    result.forEach((item) => {
-      cardItems.unshift(item);
-    });
-    cardList.renderItems();
-    console.log(cardItems);
-  })  
-  .catch((err) => {
-    console.log(err);
-  });
+
 
 function submititonEditForm(inputValues) {
   api.editUserInfo({
@@ -150,14 +151,13 @@ function submititonAddForm(inputValues) {
   })
     .then((result) => {
       console.log(result);
-      const newCard = new Card({
+      const newCardElement = createCard({
         image: inputValues.imageLink,
         signature: inputValues.cardName,
         likes: [],
         owner: cardOwner,
         id: ''
       }, userInfo, cardSelectors, handleCardClick, handleDeleteClick, handleLikeClick);
-      const newCardElement = newCard.generateCard();
       cardList.addItem(newCardElement);
     })
     .catch((err) => {
